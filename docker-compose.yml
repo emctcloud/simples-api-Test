@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - API_PORT=3000
+      - DB_USER=emctxcloud
+      - DB_HOST=db-host
+      - DB_DATABASE=db-database
+      - DB_PASSWORD=qweasd2k2024
+      - DB_PORT=5432
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: emctxcloud
+      POSTGRES_PASSWORD: qweasd2k2024
+      POSTGRES_DB: db-database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
